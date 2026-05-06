@@ -187,12 +187,7 @@ jobs:
           moodle_branch: ${{ needs.prepare_matrix.outputs.highest_moodle_branch }}
       - name: Run codechecker
         if: ${{ inputs.disable_phpcs != true }}
-        run: |
-          ignore=""
-          if [ -n "${{ inputs.ignore_paths }}" ]; then
-            ignore="--ignore=${{ inputs.ignore_paths }}"
-          fi
-          moodle-plugin-ci codechecker --max-warnings=${{ inputs.codechecker_max_warnings }} ./plugin $ignore
+        run: moodle-plugin-ci codechecker --max-warnings=${{ inputs.codechecker_max_warnings }} ./plugin
         shell: bash
       - name: Install PHPCompatibility
         if: ${{ always() && inputs.disable_phpcs != true }}
